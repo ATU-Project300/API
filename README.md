@@ -2,7 +2,22 @@
 
 ## Usage
 
-## Structure
+**GET**
+
+**POST**
+
+*Requires valid key*
+
+**PUT**
+
+*Requires valid key*
+
+**DELETE**
+
+*Requires valid key*
+
+
+## Data Structure
 
 | **Game**  |
 |-------------- |
