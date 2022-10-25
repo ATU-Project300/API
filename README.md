@@ -7,9 +7,9 @@
 | Game  |
 |-------------- |
 | Title    | 
-| Released   | 
+| YearReleased   | 
 | Description   | 
-| Images   | 
+| Image   | 
 | Consoles   | 
 | Emulator   | 
 
