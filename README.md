@@ -4,12 +4,19 @@
 
 ## Structure
 
-| Game  |
+| **Game**  |
 |-------------- |
 | Title    | 
 | YearReleased   | 
 | Description   | 
 | Image   | 
 | Consoles   | 
-| Emulator   | 
+| *Emulator*   | 
 
+| **Emulator**  |
+|-------------- |
+| Name    | 
+| Description   | 
+| StabilityRating   | 
+| Image   | 
+| Consoles   | 
