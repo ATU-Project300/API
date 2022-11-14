@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const games = require('./routes/games');
+
 
 const app = express();
 //TODO: Set up process.env.PORT etc.
