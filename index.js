@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const db = require('./database');
 const { config } = require('dotenv');
 const rateLimit = require('express-rate-limit')
 const games = require('./routes/games');
