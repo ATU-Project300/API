@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const { Emulator } = require('emulator')
+
+//TODO: Work out adding this and using it OR move its contents to this file
+//const { Emulator } = require('./emulator');
 
 const gameSchema = new mongoose.Schema({
     title: {type: String, required: true},
@@ -8,9 +10,8 @@ const gameSchema = new mongoose.Schema({
     description: String,
     image: String,
     consoles: String,
-    emulator: Emulator,
-
-})
+    emulator: String
+});
 
 function ValidateGame(game){
     const gameJoiSchema = Joi.object(
@@ -19,7 +20,8 @@ function ValidateGame(game){
             year: Joi.Number.integer.min(1950),
             description: Joi.String().min(10),
             image: Joi.String().min(8),
-            consoles: Joi.String().min(2)
+            consoles: Joi.String().min(2),
+            emulator: Joi.String()
         }
     )
 }

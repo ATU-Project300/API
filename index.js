@@ -1,19 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { config } = require('dotenv');
 const rateLimit = require('express-rate-limit')
 const games = require('./routes/games');
 
-import rateLimit from 'express-rate-limit'
-
-// TODO: .env file
+//dotenv setup
+config()
 
 const app = express();
 
-//TODO: process.env.PORT etc.
-const port = 3000;
+const port = process.env.PORT;
 
 //TODO: API key in .env - max chars possible
-const key = "";
+const key = process.env.API_KEY;
 
 // TODO: Tune rate limiting
 // Currently using Discord's rate limit.
@@ -32,5 +31,7 @@ app.use('/games', games)
 
 app.get('/', (res) => res.send('API Online'));
 
+console.log("PORT: " + port)
+console.log("API KEY: " + key)
 
-app.listen(port, () => console.log('API running on port ${port}'));
+app.listen(port, () => console.log('API running...'));
