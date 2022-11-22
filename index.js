@@ -18,7 +18,7 @@ const key = "";
 // TODO: Tune rate limiting
 // Currently using Discord's rate limit.
 const limiter = rateLimit({
-	windowMs: 10 * 60 * 1000, // 2 minutes
+	windowMs: 10 * 60 * 1000, // 10 minutes
 	max: 10000, // Limit each IP to 10,000 requests per `window` (here, per 15 minutes)
 	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
 	legacyHeaders: false, // Disable the `X-RateLimit-*` headers

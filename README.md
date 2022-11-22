@@ -45,3 +45,9 @@ The environment file, and the key is stores, is not to be accessible to the publ
 | StabilityRating   | 
 | Image   | 
 | Consoles   | 
+
+## Rate limiting
+
+The API is currently limited to 10,000 requests per a 10 minute "window".
+
+This is only for testing and non-public usage and the rate *will* be tuned for production.
