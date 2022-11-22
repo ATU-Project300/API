@@ -1,12 +1,11 @@
 const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
+const { config } = require('dotenv').config();
 
 const { Game } = require('../models/games')
 
 //TODO: GET by ID, DELETE, PUT
-
-//TODO: API Key verification for dangerous verbs
 
 function ValidateGame(game) {
     const gameJoiSchema = Joi.object(
@@ -22,7 +21,19 @@ function ValidateGame(game) {
   return gameJoiSchema.validate(game);
 }
 
-//TODO: Test POST
+//TODO: Finish key verification and add it to dangerous verbs
+//req.params.KEY maybe
+function KeyVerification(reqKey){
+  const key = process.env.API_KEY;
+
+  if(reqKey != key){
+    res.status(403)
+  }
+
+}
+
+//TODO: Test POST with invalid data
+//TODO: Test POST with/without API key
 router.post('/', async (req, res) => {
 
     let result = ValidateGame(req.body)
