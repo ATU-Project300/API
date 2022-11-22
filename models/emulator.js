@@ -1,25 +1,23 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const { Emulator } = require('emulator')
 
-const gameSchema = new mongoose.Schema({
+//TODO: Proper emulator model and validation
+const emulatorSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    year: Number,
     description: String,
+    stabilityrating: String,
     image: String,
     consoles: String,
-    emulator: Emulator,
-
 })
 
-function ValidateGame(game){
-    const gameJoiSchema = Joi.object(
+function ValidateEmulator(emulator){
+    const emulatorJoiSchema = Joi.object(
         {
             title: Joi.required(),
-            year: Joi.Number.integer.min(1950),
             description: Joi.String().min(10),
+            stabilityrating: Joi.String(),
             image: Joi.String().min(8),
-            consoles: Joi.String().min(2)
+            console: Joi.String().min(2),
         }
     )
 }

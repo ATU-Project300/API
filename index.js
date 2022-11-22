@@ -12,6 +12,9 @@ const key = "";
 
 app.use(express.json());
 
+app.use('/games', games)
+
 app.get('/', (res) => res.send('API Online'));
+
 
 app.listen(port, () => console.log('API running on port ${port}'));

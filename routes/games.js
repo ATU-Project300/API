@@ -4,6 +4,7 @@ const router = express.Router();
 
 const { Game } = require('../models/games')
 
+//TODO GET by ID, DELETE, PUT
 
 function ValidateGame(game) {
     const gameJoiSchema = Joi.object(
@@ -55,4 +56,6 @@ router.get('/', async (req, res) => {
     catch{
         res.status(404).json('Not found');
     }
-})
+});
+
+module.exports = router;
