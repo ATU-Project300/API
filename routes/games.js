@@ -12,17 +12,19 @@ function ValidateGame(game) {
     const gameJoiSchema = Joi.object(
         {
             title: Joi.required(),
-            year: Joi.Number.integer.min(1950),
-            description: Joi.String().min(10),
-            image: Joi.String().min(8),
-            consoles: Joi.String().min(2),
-            emulator: Joi.String()
+            year: Joi.number().min(1950),
+            description: Joi.string().min(10),
+            image: Joi.string().min(8),
+            consoles: Joi.string().min(2),
+            emulator: Joi.string()
         }
     )
+  return gameJoiSchema.validate(game);
 }
 
 //TODO: Test POST
 router.post('/', async (req, res) => {
+
     let result = ValidateGame(req.body)
 
     if (result.error) {
