@@ -6,6 +6,8 @@
 
 **GET**
 
+Returns all games in JSON
+
 **POST**
 
 *Requires valid key*
@@ -30,7 +32,7 @@ The environment file, and the key is stores, is not to be accessible to the publ
 | **Game**  |
 |-------------- |
 | Title    | 
-| YearReleased   | 
+| Year   | 
 | Description   | 
 | Image   | 
 | Consoles   | 
