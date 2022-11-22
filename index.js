@@ -30,7 +30,8 @@ app.use(express.json());
 
 app.use('/games', games)
 
-app.get('/', (res) => res.send('API Online'));
+app.get('/', (req, res) => res.send('API Online!'))
+
 
 console.log("PORT: " + port)
 console.log("API KEY: " + key)

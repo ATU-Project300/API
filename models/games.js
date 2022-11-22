@@ -25,3 +25,7 @@ function ValidateGame(game){
         }
     )
 }
+
+const Game = mongoose.model('Game', gameSchema);
+
+module.exports = {Game, ValidateGame};
