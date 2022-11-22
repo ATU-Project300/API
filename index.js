@@ -15,7 +15,7 @@ const port = process.env.PORT;
 const key = process.env.API_KEY;
 
 // TODO: Tune rate limiting
-// Currently using Discord's rate limit.
+// Currently using Discord's rate limit settings.
 const limiter = rateLimit({
 	windowMs: 10 * 60 * 1000, // 10 minutes
 	max: 10000, // Limit each IP to 10,000 requests per `window` (here, per 15 minutes)
