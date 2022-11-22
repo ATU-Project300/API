@@ -4,7 +4,9 @@ const router = express.Router();
 
 const { Game } = require('../models/games')
 
-//TODO GET by ID, DELETE, PUT
+//TODO: GET by ID, DELETE, PUT
+
+//TODO: API Key verification for dangerous verbs
 
 function ValidateGame(game) {
     const gameJoiSchema = Joi.object(
