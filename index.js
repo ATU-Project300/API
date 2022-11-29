@@ -4,6 +4,8 @@ const db = require('./database');
 const { config } = require('dotenv');
 const rateLimit = require('express-rate-limit')
 const games = require('./routes/games');
+const cors = require('cors')
+
 
 //dotenv setup
 config()
@@ -11,6 +13,12 @@ config()
 const app = express();
 
 const port = process.env.PORT;
+
+var corsOptions = {
+    origin: 'http://localhost:4200',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 
 //TODO: API key in .env - max chars possible
 const key = process.env.API_KEY;
