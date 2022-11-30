@@ -5,7 +5,6 @@ const Joi = require('joi');
 const emulatorSchema = new mongoose.Schema({
     title: {type: String, required: true},
     description: String,
-    stabilityrating: String,
     image: String,
     consoles: String,
 })
@@ -15,7 +14,6 @@ function ValidateEmulator(emulator){
         {
             title: Joi.required(),
             description: Joi.String().min(10),
-            stabilityrating: Joi.String(),
             image: Joi.String().min(8),
             console: Joi.String().min(2),
         }

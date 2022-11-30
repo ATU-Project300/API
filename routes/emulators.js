@@ -12,7 +12,6 @@ function ValidateEmulator(emulator) {
         {
             title: Joi.required(),
             description: Joi.String().min(10),
-            stabilityrating: Joi.String(),
             image: Joi.String().min(8),
             console: Joi.String().min(2),
         }
