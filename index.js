@@ -4,6 +4,7 @@ const db = require('./database');
 const { config } = require('dotenv');
 const rateLimit = require('express-rate-limit')
 const games = require('./routes/games');
+const emulators = require('./routes/emulators');
 const cors = require('cors')
 
 
@@ -44,6 +45,8 @@ app.use(function (req, res, next) {
 app.use(express.json());
 
 app.use('/games', games)
+
+app.use('/emulators', emulators)
 
 app.get('/', (req, res) => res.send('API Online!'))
 
