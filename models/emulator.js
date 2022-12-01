@@ -6,7 +6,7 @@ const emulatorSchema = new mongoose.Schema({
     title: {type: String, required: true},
     description: String,
     image: String,
-    consoles: String,
+    console: String,
 })
 
 function ValidateEmulator(emulator){
@@ -19,3 +19,7 @@ function ValidateEmulator(emulator){
         }
     )
 }
+
+const Emulator = mongoose.model('Emulator', emulatorSchema)
+
+module.exports = {Emulator, ValidateEmulator};

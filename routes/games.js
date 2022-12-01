@@ -2,7 +2,6 @@ const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
 const { config } = require('dotenv').config();
-
 const { Game } = require('../models/games')
 
 //TODO: GET by ID, DELETE, PUT
