@@ -20,15 +20,39 @@ function ValidateGame(game) {
   return gameJoiSchema.validate(game);
 }
 
-//TODO: Finish key verification and add it to dangerous verbs
-//req.params.KEY maybe
-function KeyVerification(reqKey){
-  const key = process.env.API_KEY;
+//TODO: Add filters
+router.get('/', async (req, res) => {
+    const { title } = req.query;
+    let filter = {};
 
-  if(reqKey != key){
-    res.status(403)
-  }
+    title ? filter.title = title : null;
 
+    try {
+        const games = await Game.find(title);
+        res.json(games);
+    }
+    catch{
+        res.status(404).json('Not found');
+    }
+});
+
+/*  PROTECT ALL ROUTES THAT FOLLOW (All requests made to the below methods are protected by this one)
+    Setting up key auth in Postman:
+        Use Authorization -> Type "API Key"
+        Key: API_KEY
+        Value: yourapikey
+        Add to: Header
+*/
+
+if (!process.env.SKIP_AUTH || process.env.SKIP_AUTH == "false") {
+    router.use((req, res, next) => {
+        const apiKey = req.get('API_KEY')
+        if (!apiKey || apiKey !== process.env.API_KEY) {
+            res.status(401).json({ error: 'Unauthorised' })
+        } else {
+            next()
+        }
+    })
 }
 
 //TODO: Test POST with invalid data
@@ -56,20 +80,17 @@ router.post('/', async (req, res) => {
 
 });
 
-//TODO: Add filters
-router.get('/', async (req, res) => {
-    const { title } = req.query;
-    let filter = {};
-
-    title ? filter.title = title : null;
-
+router.delete('/:id', async (req, res) => {
     try {
-        const games = await Game.find(title);
-        res.json(games);
+        const game = await Game.findByIdAndDelete(req.params.id);
+        if (game)
+            res.status(204).send();
+        else
+            res.status(404).json(`Game with ID ${req.params.id} not found`)
     }
-    catch{
-        res.status(404).json('Not found');
+    catch {
+        res.status(404).json(`Error caused by ID: ${req.params.id}`);
     }
-});
+})
 
 module.exports = router;
