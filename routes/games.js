@@ -4,7 +4,7 @@ const router = express.Router();
 const { config } = require('dotenv').config();
 const { Game } = require('../models/games')
 
-//TODO: GET by ID, DELETE, PUT
+//TODO: PUT
 
 function ValidateGame(game) {
     const gameJoiSchema = Joi.object(
@@ -22,19 +22,38 @@ function ValidateGame(game) {
 
 //TODO: Add filters
 router.get('/', async (req, res) => {
-    const { title } = req.query;
+    const { title, year, consoles, emulator } = req.query;
     let filter = {};
 
     title ? filter.title = title : null;
+    year ? filter.year = year : null;
+    consoles ? filter.consoles = consoles : null;
+    emulator ? filter.emulator = emulator : null;
 
     try {
-        const games = await Game.find(title);
+        const games = await Game.find(filter);
         res.json(games);
     }
     catch{
         res.status(404).json('Not found');
     }
 });
+
+router.get('/:id', async (req, res) => {
+
+    try {
+        const game = await Game.findById(req.params.id);
+        if (game) {
+            res.json(game);
+        }
+        else {
+            res.status(404).json('Not found');
+        }
+    }
+    catch (error) {
+        res.status(404).json('ID does not exist.' + error);
+    }
+})
 
 /*  PROTECT ALL ROUTES THAT FOLLOW (All requests made to the below methods are protected by this one)
     Setting up key auth in Postman:

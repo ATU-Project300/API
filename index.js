@@ -14,6 +14,7 @@ config()
 const app = express();
 
 const port = process.env.PORT;
+const key = process.env.API_KEY;
 
 var corsOptions = {
     origin: 'http://localhost:4200',
@@ -21,8 +22,6 @@ var corsOptions = {
 }
 
 
-//TODO: API key in .env - max chars possible
-const key = process.env.API_KEY;
 
 // TODO: Tune rate limiting
 // Currently using Discord's rate limit settings.
