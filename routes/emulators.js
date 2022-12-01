@@ -15,19 +15,45 @@ function ValidateEmulator(emulator) {
             console: Joi.string().min(2),
         }
     )
-  return emulatorJoiSchema.validate(emulator);
+    return emulatorJoiSchema.validate(emulator);
 }
 
-//TODO: Finish key verification and add it to dangerous verbs
-//req.params.KEY maybe
-function KeyVerification(reqKey){
-  const key = process.env.API_KEY;
+//TODO: Add filters
+router.get('/', async (req, res) => {
+    const { title } = req.query;
+    let filter = {};
 
-  if(reqKey != key){
-    res.status(403)
-  }
+    title ? filter.title = title : null;
 
+    try {
+        const emulators = await Emulator.find(title);
+        res.json(emulators);
+    }
+    catch {
+        res.status(404).json('Not found');
+    }
+});
+
+/*  PROTECT ALL ROUTES THAT FOLLOW (All requests made to the below methods are protected by this one)
+    Setting up key auth in Postman:
+        Use Authorization -> Type "API Key"
+        Key: API_KEY
+        Value: yourapikey
+        Add to: Header
+*/
+
+if (!process.env.SKIP_AUTH || process.env.SKIP_AUTH == "false") {
+    router.use((req, res, next) => {
+        const apiKey = req.get('API_KEY')
+        if (!apiKey || apiKey !== process.env.API_KEY) {
+            res.status(401).json({ error: 'Unauthorised' })
+        } else {
+            next()
+        }
+    })
 }
+
+
 
 //TODO: Test POST with invalid data
 //TODO: Test POST with/without API key
@@ -52,22 +78,6 @@ router.post('/', async (req, res) => {
         res.status(500).send('db_error ' + error)
     }
 
-});
-
-//TODO: Add filters
-router.get('/', async (req, res) => {
-    const { title } = req.query;
-    let filter = {};
-
-    title ? filter.title = title : null;
-
-    try {
-        const emulators = await Emulator.find(title);
-        res.json(emulators);
-    }
-    catch{
-        res.status(404).json('Not found');
-    }
 });
 
 router.delete('/:id', async (req, res) => {
