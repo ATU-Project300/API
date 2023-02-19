@@ -99,6 +99,21 @@ router.post('/', async (req, res) => {
 
 });
 
+//get use for search and can be used as a filter function user can search for a title/emulator/console/year
+router.get("/search/:key",async (req,res)=>{
+    let data = await Game.find(
+        {
+            "$or":[
+                {title:{$regex:req.params.key}},
+                {year:{$regex:req.params.key}},
+                {consoles:{$regex:req.params.key}},
+                {emulator:{$regex:req.params.key}}
+            ]
+        }
+    )
+    res.send(data);
+})
+
 router.delete('/:id', async (req, res) => {
     try {
         const game = await Game.findByIdAndDelete(req.params.id);
