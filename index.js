@@ -7,7 +7,6 @@ const games = require('./routes/games');
 const emulators = require('./routes/emulators');
 const cors = require('cors')
 
-
 //dotenv setup
 config()
 
