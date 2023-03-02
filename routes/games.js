@@ -14,7 +14,8 @@ function ValidateGame(game) {
             description: Joi.string().min(10),
             image: Joi.string().min(8),
             consoles: Joi.string().min(2),
-            emulator: Joi.string()
+            emulator: Joi.string(),
+            rating: Joi.number().min(0).max(5)
         }
     )
   return gameJoiSchema.validate(game);
@@ -113,6 +114,30 @@ router.get("/search/:key",async (req,res)=>{
     )
     res.send(data);
 })
+
+router.put('/:id/rate', async (req, res) => {
+    const gameId = req.params.id;
+    const rating = req.body.rating;
+  
+    if (!rating || rating < 0 || rating > 5) {
+      return res.status(400).send('Invalid rating value');
+    }
+  
+    try {
+      const game = await Game.findById(gameId);
+  
+      if (!game) {
+        return res.status(404).send('Game not found');
+      }
+  
+      game.rating = rating;
+      const updatedGame = await game.save();
+      res.json(updatedGame);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('An error occurred while rating the game');
+    }
+  });
 
 router.delete('/:id', async (req, res) => {
     try {
