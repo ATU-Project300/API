@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
 
-//TODO: Work out adding this and using it OR move its contents to this file
-//const { Emulator } = require('./emulator');
-
 const gameSchema = new mongoose.Schema({
     title: {type: String, required: true},
     year: Number,
     description: String,
     image: String,
     consoles: String,
-    emulator: String
+    emulator: String,
+    rating: {type: Number, default: 0} // Add rating field
 });
 
 function ValidateGame(game){
