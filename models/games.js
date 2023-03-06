@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
+const { number } = require('joi');
 
 const gameSchema = new mongoose.Schema({
     title: {type: String, required: true},
@@ -8,7 +9,8 @@ const gameSchema = new mongoose.Schema({
     image: String,
     consoles: String,
     emulator: String,
-    rating: {type: Number, default: 0} // Add rating field
+    rating: [Number], 
+    averageRating:Number
 });
 
 function ValidateGame(game){

@@ -129,8 +129,21 @@ router.put('/:id/rate', async (req, res) => {
       if (!game) {
         return res.status(404).send('Game not found');
       }
-  
-      game.rating = rating;
+      if(!game.rating){
+        game.rating=[];
+      }
+      if( game.rating.length>0){
+        let sumOfRating=0;
+        for (let index = 0; index < game.rating.length; index++) {
+            sumOfRating+=game.rating[index];
+        }
+        game.averageRating=parseInt(sumOfRating/game.rating.length)
+      }
+      else{
+        game.averageRating=parseInt(rating);
+      }
+            
+      game.rating.push(parseInt(rating));
       const updatedGame = await game.save();
       res.json(updatedGame);
     } catch (error) {
