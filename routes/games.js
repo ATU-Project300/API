@@ -2,7 +2,8 @@ const express = require('express');
 const Joi = require('joi');
 const router = express.Router();
 const { config } = require('dotenv').config();
-const { Game } = require('../models/games')
+const { Game } = require('../models/games');
+
 
 //TODO: PUT
 
@@ -101,7 +102,7 @@ router.post('/', async (req, res) => {
 });
 
 //get use for search and can be used as a filter function user can search for a title/emulator/console/year
-router.get("/search/:key",async (req,res)=>{
+router.get("/search/:key", async (req,res)=>{
     let data = await Game.find(
         {
             "$or":[
@@ -115,42 +116,44 @@ router.get("/search/:key",async (req,res)=>{
     res.send(data);
 })
 
+
 router.put('/:id/rate', async (req, res) => {
-    const gameId = req.params.id;
-    const rating = req.body.rating;
-  
-    if (!rating || rating < 0 || rating > 5) {
-      return res.status(400).send('Invalid rating value');
+  const gameId = req.params.id;
+  const rating = req.body.rating;
+
+  if (!rating || rating < 0 || rating > 5) {
+    return res.status(400).send('Invalid rating value');
+  }
+
+  try {
+    const game = await Game.findById(gameId);
+
+    if (!game) {
+      return res.status(404).send('Game not found');
     }
-  
-    try {
-      const game = await Game.findById(gameId);
-  
-      if (!game) {
-        return res.status(404).send('Game not found');
-      }
-      if(!game.rating){
-        game.rating=[];
-      }
-      if( game.rating.length>0){
-        let sumOfRating=0;
-        for (let index = 0; index < game.rating.length; index++) {
-            sumOfRating+=game.rating[index];
-        }
-        game.averageRating=parseInt(sumOfRating/game.rating.length)
-      }
-      else{
-        game.averageRating=parseInt(rating);
-      }
-            
-      game.rating.push(parseInt(rating));
-      const updatedGame = await game.save();
-      res.json(updatedGame);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('An error occurred while rating the game');
+
+    if (!game.rating) {
+      game.rating = [];
     }
-  });
+
+    if (game.rating.length > 0) {
+      let sumOfRating = 0;
+      for (let index = 0; index < game.rating.length; index++) {
+        sumOfRating += game.rating[index];
+      }
+      game.averageRating = parseInt(sumOfRating / game.rating.length);
+    } else {
+      game.averageRating = parseInt(rating);
+    }
+
+    game.rating.push(parseInt(rating));
+    const updatedGame = await game.save();
+    res.json(updatedGame);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occurred while rating the game');
+  }
+});
 
 router.delete('/:id', async (req, res) => {
     try {
