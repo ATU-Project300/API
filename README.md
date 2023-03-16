@@ -13,7 +13,6 @@
 
 * Returns all games or emulators in JSON.
 
-
 **POST**
 
 * *Requires valid key*
