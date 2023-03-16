@@ -12,6 +12,7 @@ function ValidateEmulator(emulator) {
             name: Joi.required(),
             description: Joi.string().min(10),
             image: Joi.string().min(8),
+            website: Joi.string().min(3),
             rating: Joi.Number().min(0).max(5) // validation for rating field
         }
     )
