@@ -9,20 +9,20 @@ const { Emulator } = require('../models/emulator')
 function ValidateEmulator(emulator) {
     const emulatorJoiSchema = Joi.object(
         {
-            title: Joi.required(),
+            name: Joi.required(),
             description: Joi.string().min(10),
             image: Joi.string().min(8),
-            console: Joi.string().min(2),
+            rating: Joi.Number().min(0).max(5) // validation for rating field
         }
     )
     return emulatorJoiSchema.validate(emulator);
 }
 
 router.get('/', async (req, res) => {
-    const { title,console } = req.query;
+    const { name,console } = req.query;
     let filter = {};
 
-    title ? filter.title = title : null;
+    name ? filter.name = name : null;
     console ? filter.console = console : null;
 
     try {
