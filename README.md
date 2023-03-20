@@ -59,6 +59,7 @@ This will require the API to be restarted.
 | Description   | 
 | Image   | 
 | Consoles   | 
+| Rating   | 
 | *Emulator*   | 
 
 | **Emulator**  |
@@ -67,6 +68,7 @@ This will require the API to be restarted.
 | Description   | 
 | Image   | 
 | Console   | 
+| Executable   | 
 
 ## Rate limiting
 
